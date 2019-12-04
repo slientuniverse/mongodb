@@ -9,7 +9,7 @@ public class User {
     @Id
     private String id;
     private String name;
-    private String age;
+    private int age;
 
     public String getId() {
         return id;
@@ -27,11 +27,11 @@ public class User {
         this.name = name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 }
