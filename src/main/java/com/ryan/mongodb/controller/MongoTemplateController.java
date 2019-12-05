@@ -1,7 +1,6 @@
 package com.ryan.mongodb.controller;
 
 import com.google.gson.Gson;
-import com.mongodb.WriteResult;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.ryan.mongodb.entity.User;
@@ -22,10 +21,10 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * @author hyt
+ * @author ryan
  */
 @RestController
-@RequestMapping("/crud")
+@RequestMapping("/template")
 public class MongoTemplateController {
 
     private final static Logger logger = LoggerFactory.getLogger(MongoTemplateController.class);
@@ -95,6 +94,7 @@ public class MongoTemplateController {
         // 分页查询 skip:从哪开始 limit:从开始数多少条 gt lt gte let 大于 小于 大于等于 小于等于
         query = new Query();
         query.addCriteria(Criteria.where("age").gte(5)).skip(5).limit(5);
+//        query.with()
         list = mongoTemplate.find(query, User.class);
         logger.info("分页查询：" + gson.toJson(list));
 
@@ -110,7 +110,7 @@ public class MongoTemplateController {
 
         // 返回删除的数据 mongoTemplate.findAndRemove
 
-        return gson.toJson(list);
+        return "ok";
     }
 
     @GetMapping("/update")

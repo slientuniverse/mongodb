@@ -3,6 +3,9 @@ package com.ryan.mongodb.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * @author ryan
+ */
 @Document(collection = "user")
 public class User {
 
