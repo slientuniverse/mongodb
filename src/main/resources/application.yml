@@ -2,3 +2,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://root:test123@10.18.3.163:27017/test
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG

@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author ryan
+ * @description 使用MongoTemplate
  */
 @RestController
 @RequestMapping("/template")
@@ -64,7 +65,8 @@ public class MongoTemplateController {
     public String delete(){
         // delete 删除
         Query query = new Query();
-        Criteria criteria = Criteria.where("name").is("ryan2");
+        Criteria criteria = Criteria.where("name").
+                is("ryan2");
         query.addCriteria(criteria);
         DeleteResult result = mongoTemplate.remove(query, User.class);
         logger.info("普通查询：" + gson.toJson(result));

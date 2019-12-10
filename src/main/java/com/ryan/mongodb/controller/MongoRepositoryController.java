@@ -16,6 +16,7 @@ import java.util.UUID;
 
 /**
  * @author ryan
+ * @description 使用MongoRepository
  */
 @RestController
 @RequestMapping("/repository")
