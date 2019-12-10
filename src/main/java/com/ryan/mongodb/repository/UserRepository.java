@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserRepository extends MongoRepository<User, String> {
 
-    User findByName(String name);
+    User findFirstByName(String name);
 
     @Query(value = "{'_id': ?0}", fields = "{'age' : 0}")
     String findNameById(String id);

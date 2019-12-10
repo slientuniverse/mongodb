@@ -67,7 +67,7 @@ public class MongoRepositoryController {
     @GetMapping("/query")
     public String query(){
         // 根据name查询
-        User batch3 = userRepository.findByName("batch3");
+        User batch3 = userRepository.findFirstByName("batch3");
         logger.info("根据name查询：" + gson.toJson(batch3));
 
         // 不显示age
@@ -75,7 +75,7 @@ public class MongoRepositoryController {
         logger.info("不显示age：" + name);
 
         // 模糊查询
-        List<User> list = userRepository.findByNameLike("batch");
+        List<User> list = userRepository.findByNameLike("batch14");
         logger.info("模糊查询：" + gson.toJson(list));
         return "ok";
     }

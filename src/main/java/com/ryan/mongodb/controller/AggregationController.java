@@ -2,6 +2,7 @@ package com.ryan.mongodb.controller;
 
 import com.google.gson.Gson;
 import com.ryan.mongodb.entity.Magic;
+import com.ryan.mongodb.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
  * @author ryan
@@ -33,8 +35,8 @@ public class AggregationController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @GetMapping("/group")
-    public String group(){
+    @GetMapping("/count")
+    public String count(){
         List<Magic> list = mongoTemplate.findAll(Magic.class);
         if (list.isEmpty()){
             for (int i = 0; i < 20; i++) {
@@ -78,7 +80,20 @@ public class AggregationController {
         AggregationResults<Magic> results = mongoTemplate.aggregate(aggregation, "magic", Magic.class);
 
         logger.info(aggregation.toString());
-        logger.info(aggregation.getOptions().toString());
+        logger.info("result: " + gson.toJson(results));
+        return "ok";
+    }
+
+    @GetMapping("/sum")
+    public String sum(){
+        Pattern pattern= Pattern.compile("^.*"+ "batch" +".*$", Pattern.CASE_INSENSITIVE);
+
+        List<AggregationOperation> operations = new ArrayList<>();
+        operations.add(Aggregation.match(Criteria.where("name").regex(pattern)));
+        operations.add(Aggregation.group("name").sum("age").as("age_total"));
+        Aggregation aggregation = Aggregation.newAggregation(operations);
+        AggregationResults<User> results = mongoTemplate.aggregate(aggregation, "user", User.class);
+        logger.info(aggregation.toString());
         logger.info("result: " + gson.toJson(results));
         return "ok";
     }
